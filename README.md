@@ -1,4 +1,4 @@
-# Express.js Tutorial
+# A. Express.js Tutorial
 
 ## 1. Initializing project
 
@@ -85,7 +85,9 @@ Add the `response` and `request`
 
     app.get("/", function(res, req){})
 
-Can modify to use an arrow function if desired
+> The syntax used in the second parameter is called a `callback function`
+
+Can modify to use an `arrow function` if desired
 
     app.get("/", (req,res) => {})
 
@@ -198,7 +200,7 @@ From here you can use the `__dirname` parameter and identify the `folders` and t
 
     // Imports express package
     const express = require("express"); 
-    // **Imports path package
+    // ** Imports path package
     const path = require("path");
 
     // Assigns package to variable to use
@@ -215,4 +217,256 @@ From here you can use the `__dirname` parameter and identify the `folders` and t
     // Server will runn
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
-> NOTE: If we do the `path` method, we'd have to put a route manually for every single page.
+> NOTE: If we do the `path` method, we'd have to put a route manually for every single page if we wanted like an about or contact page, etc. If you want a static server that serves html css etc., express has functionality that will make a certain folder a `static` folder.
+
+## 6. Setting up a `Static` folder
+
+To setup the static folder, we will need to modify the `app.get` code. Replace with
+
+    // Set static folder
+    app.use();
+
+`use` is the method to include middleware. continue using the `static` method: 
+
+    // Set static folder
+    app.use(express.static());
+
+Now point to the `public` directory:
+
+    // Set static folder
+    app.use(express.static(path.join(__dirname, "public")));
+
+> CODE CHECK: Your server code should look like this:
+
+    // Imports express package
+    const express = require("express"); 
+    // ** Imports path package
+    const path = require("path");
+
+    // Assigns package to variable to use
+    const app = express(); 
+
+    // ** Set static folder **
+    app.use(express.static(path.join(__dirname, "public")));
+
+    // Assign port
+    const PORT = process.env.PORT || 5001;
+
+    // Server will runn
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+> NOTE: Once you have the folder static, you are able to create more html pages and css and use relative links to link them. In node.js, there was much to set up just to get this functionality working on a server, but with express, it's much faster. This is just to create a static server, this is not what you'd use express for.
+
+# B. So What is Express Really USED for?
+
+Express is used to build JSON APIs to connect to a front-end like react. Or render templates where you can insert dynamic data so you can create a dynamic app rather than a static website.
+
+## 1. Creating a REST API with Routing
+
+We'll be creating a simple `REST API`. The following code will not deal with databases, we will use a hardcoded array to understand the tutorial. However it's the same principle when we deal with routes and responses in Express.
+
+So add the following in the code:
+
+    app.get('/api/members');
+
+Now lets add our `request` and `response` parameters in an arrow function.
+
+    app.get('/api/members', (req, res) => {
+    });
+
+Now let's create an array of `members`
+
+    const members = [
+        {
+            id:     1,
+            name:   'John Doe',
+            email:  'john@gmail.com',
+            status: 'active'
+        },
+        {
+            id:     2,
+            name:   'Bob Williams',
+            email:  'bob@gmail.com',
+            status: 'inactive'
+        },
+        {
+            id:     3,
+            name:   'Shannon Jackson',
+            email:  'shannon@gmail.com',
+            status: 'active'
+        }
+    ]
+
+Now I want to return that `members` array to `JSON`. So in the code: 
+
+    app.get('/api/members', (req, res) => {
+        res.json(members);
+        });
+
+> NOTE: We don't have to do JSON.stringify even though these are JS objects because the `res.json` will take care of that.
+
+> CODE CHECK Your code should look like this:
+
+    // Imports express package
+    const express = require("express"); 
+    // Imports path package
+    const path = require("path");
+
+    // Assigns package to variable to use
+    const app = express(); 
+
+    // ** Members array **
+    const members = [
+        {
+            id:     1,
+            name:   'John Doe',
+            email:  'john@gmail.com',
+            status: 'active'
+        },
+        {
+            id:     2,
+            name:   'Bob Williams',
+            email:  'bob@gmail.com',
+            status: 'inactive'
+        },
+        {
+            id:     3,
+            name:   'Shannon Jackson',
+            email:  'shannon@gmail.com',
+            status: 'active'
+        }
+    ]
+
+    // ** Gets All Members
+    app.get('/api/members', (req, res) => {
+        res.json(members);
+        });
+
+    // Set static folder
+    app.use(express.static(path.join(__dirname, "public")));
+
+    // Assign port
+    const PORT = process.env.PORT || 5001;
+
+    // Server will runn
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+
+Congratulations, we've been able to code a simple REST API. Let's test it out with `postman` or `Nocturnal`
+
+Run the following code as a `GET` response: 
+
+    http://localhost:5001/api/members
+
+> This is only one expression inside an arrow function so there's no need to use curly braces. You can refactor to the following:
+
+    // Gets All Members
+    app.get('/api/members', (req, res) => res.json(members));
+     
+After you clean up, your code should look like this:
+
+    // Imports express package
+    const express = require("express"); 
+    // Imports path package
+    const path = require("path");
+
+    // Assigns package to variable to use
+    const app = express(); 
+
+    // Members array
+    const members = [
+        {
+            id:     1,
+            name:   'John Doe',
+            email:  'john@gmail.com',
+            status: 'active'
+        },
+        {
+            id:     2,
+            name:   'Bob Williams',
+            email:  'bob@gmail.com',
+            status: 'inactive'
+        },
+        {
+            id:     3,
+            name:   'Shannon Jackson',
+            email:  'shannon@gmail.com',
+            status: 'active'
+        }
+    ]
+
+    // ** Gets All Members
+     app.get('/api/members', (req, res) => res.json(members));
+
+    // Set static folder
+    app.use(express.static(path.join(__dirname, "public")));
+
+    // Assign port
+    const PORT = process.env.PORT || 5001;
+
+    // Server will runn
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+### i. Let's Refactor
+
+First, we'll put the array inside a file called `"Members.js"` because it is essentially our model.
+
+    const members = [
+        {
+            id:     1,
+            name:   'John Doe',
+            email:  'john@gmail.com',
+            status: 'active'
+        },
+        {
+            id:     2,
+            name:   'Bob Williams',
+            email:  'bob@gmail.com',
+            status: 'inactive'
+        },
+        {
+            id:     3,
+            name:   'Shannon Jackson',
+            email:  'shannon@gmail.com',
+            status: 'active'
+        }
+    ];
+
+ Next we'll add `export` code:
+
+    module.exports = members
+
+Then in `index.js`, add the following code:
+
+    const members = require("./Members");
+
+> We cleaned up the file because we didn't want to clog up the file with a lot of code.
+
+> CODE CHECK
+
+    / Imports express package
+    const express = require("express"); 
+    // Imports path package
+    const path = require("path");
+    // ** Imports members model
+    const members = require("./Members");
+
+    // Assigns package to variable to use
+    const app = express(); 
+
+    // Gets All Members
+     app.get('/api/members', (req, res) => res.json(members));
+
+    // Set static folder
+    app.use(express.static(path.join(__dirname, "public")));
+
+    // Assign port
+    const PORT = process.env.PORT || 5001;
+
+    // Server will runn
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+
+## 2. Using Middleware Functions
+
+We're going to create a simple login middle ware function

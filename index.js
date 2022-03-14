@@ -1,15 +1,13 @@
 // Imports express package
 const express = require("express");
-// Imports file package
+// ** Imports path package
 const path = require("path");
 
 // Assigns package to variable to use
 const app = express();
 
-// ** Create route
-app.get("/", (req, res) => {
-	res.sendFile(path.join(__dirname, "index.html"));
-});
+// ** Set static folder **
+app.use(express.static(path.join(__dirname, "public")));
 
 // Assign port
 const PORT = process.env.PORT || 5002;
