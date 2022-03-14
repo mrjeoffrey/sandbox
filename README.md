@@ -1,3 +1,5 @@
+# Express.js Tutorial
+
 ## 1. Initializing project
 
 Initialize npm to create a package.json
@@ -31,7 +33,7 @@ Now that we have our projected initilized and packages installed, create a serve
 
 Add a `PORT` variable and assign port number. Use pipes and add `process.env.PORT` for deployment purposes in the future. This will render the deployment link instead of the localhost.
 
-the script should look like this **. 
+> CODE CHECK the script should look like this **. 
 
 
     // Imports express package
@@ -68,7 +70,7 @@ Few things to note. This is basic syntax for server, but it does not have any ro
 ----
 
 
-## 3. Set up Routes
+## 3. Setup Routes
 
 We will create routes for going to a webpage, which is handled by a `GET` request. The `first parameter` will be a `/` and then a `function` for `second paremeter`. Every route we create will have access to the `req, res` objects.
 
@@ -87,7 +89,7 @@ Can modify to use an arrow function if desired
 
     app.get("/", (req,res) => {})
 
-Updated code should look like this**:
+> CODE CHECK Updated code should look like this **:
 
     // Imports express package
     const express = require("express"); 
@@ -143,7 +145,7 @@ Now run
 
 ----
 
-## What can we send as a response?
+## 5. What can we send as a response?
 
 The `response` object has many methods we can send to the server. 
 - `send` is one but not used too much
@@ -151,15 +153,15 @@ The `response` object has many methods we can send to the server.
 - `render` with `res.render` if we have a template engine where it can render an html template and we can place variables inside
     - template examples:
     - PUG (weird syntax, normally we use handlebars or EJS)
-- `file` - which points to files
+- `sendFile` - which points to files
 
-### How to use `file` method?
+### i. How to use `sendFile` method?
 
-To use the `file` method for your response, you need to bring import `path` into your server file by typing
+To use the `file` method for your response, you need to import `path` into your server file by typing
 
     const path = require("path");
 
-With that command, the code should now look like this**:
+> CODE CHECK: With that command, the code should now look like this **:
 
     // Imports express package
     const express = require("express"); 
@@ -178,7 +180,7 @@ With that command, the code should now look like this**:
     // Server will runn
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
-One we import `path`, now we modify the res method to 
+Once we import `path`, now we modify the res method to 
 
     res.sendFile();
 
@@ -192,7 +194,7 @@ From here you can use the `__dirname` parameter and identify the `folders` and t
 
 > At this point in the code, we would need to setup the `index.html` file in the `public` folder.
 
-Your server code should look like this:
+> CODE CHECK: Your server code should look like this:
 
     // Imports express package
     const express = require("express"); 
