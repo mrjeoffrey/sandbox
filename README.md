@@ -470,3 +470,11 @@ Then in `index.js`, add the following code:
 ## 2. Using Middleware Functions
 
 We're going to create a simple login middle ware function
+
+To get started, let's type the following:
+
+    const logger = (req, res, next)
+
+When you take in middleware, it takes in `request`, `response`, and `next`. And you always want `next` last. Let's continue with the arrow function.
+
+    const logger = (req, res, next) => {}
