@@ -77,3 +77,17 @@ Let's create multiple books
 ## Let's UPDATE - DELETE
 
 ## Let's ASYNC - AWAIT
+
+----
+
+## RESTful Routes
+
+SOURCE schema
+
+Don't want to lose error handling so use the `try` amd `catch` blocks during `async/await`
+
+## Validation
+## Password Hashing
+## Hooks
+## Instance Method
+

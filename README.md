@@ -463,18 +463,49 @@ Then in `index.js`, add the following code:
     // Assign port
     const PORT = process.env.PORT || 5001;
 
-    // Server will runn
+    // Server will run
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 
 ## 2. Using Middleware Functions
 
-We're going to create a simple login middle ware function
+We're going to create a simple middle ware function
 
 To get started, let's type the following:
 
     const logger = (req, res, next)
 
-When you take in middleware, it takes in `request`, `response`, and `next`. And you always want `next` last. Let's continue with the arrow function.
+When you take in middleware, it takes in `request`, `response`, and `next`. And you always want `next` last. So that you can move to the next function in the stack. Let's continue with the arrow function.
 
     const logger = (req, res, next) => {}
+
+Now let's add console.log ('Hello');
+
+    const logger = (req, res, next) => {
+        console.log('Hello');
+        next();
+    };
+
+Everytime we make a request, the middleware above will run.
+So let's log the URL that's hit and the date.
+We have access to the URL
+
+    const logger = (req, res, next) => {
+        console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+        next();
+    };
+
+Go to postman/insomnia and send a request (http://localhost:5000/api/members)
+So the console.log should show the link.
+
+Now let's add date/timestamp. run 
+
+    npm i moment
+
+then import
+
+    const moment = require("moment");
+
+## With Middleware we can create our own APIs
+
+This needs to be rewatched and reviewed 30:25 https://www.youtube.com/watch?v=L72fhGm1tfE
